@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC English Extension Practice Exam Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .builder-header {
+            background: #1e3a5f;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .builder-header h1 { font-size: 28px; margin-bottom: 0.5rem; }
+        .builder-header p { font-size: 16px; opacity: 0.9; }
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1e3a5f;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+            font-size: 22px;
+        }
+        label {
+            display: block;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        label span.label-text {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="url"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        textarea { resize: vertical; }
+        small {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            margin-top: 0.25rem;
+            font-weight: normal;
+        }
+        .primary-button {
+            background: #1e3a5f;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+        .primary-button:hover { background: #2a4a7f; }
+        .generate-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .help-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 1rem;
+        }
+        .question-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .question-selector label {
+            flex: 1;
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 2px solid #d0d0d0;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .question-selector input[type="radio"] { margin-right: 0.5rem; }
+        .question-selector label:has(input:checked) {
+            border-color: #1e3a5f;
+            background: #e8f4f8;
+        }
+        .hidden { display: none; }
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="builder-header">
+            <h1>HSC English Extension Practice Exam Builder</h1>
+            <p>Configure your exam and generate the student file</p>
+        </div>
+
+        <div class="section">
+            <h2>Exam Settings</h2>
+            
+            <div class="question-selector">
+                <label>
+                    <input type="radio" name="questionsIncluded" value="both" checked>
+                    <span class="label-text">Both Q1 and Q2</span>
+                </label>
+                <label>
+                    <input type="radio" name="questionsIncluded" value="q1">
+                    <span class="label-text">Q1 only</span>
+                </label>
+                <label>
+                    <input type="radio" name="questionsIncluded" value="q2">
+                    <span class="label-text">Q2 only</span>
+                </label>
+            </div>
+
+            <label>
+                <span class="label-text">Exam Title:</span>
+                <input type="text" id="examTitle" value="HSC English Extension I Practice Examination" />
+            </label>
+            
+            <label>
+                <span class="label-text">Test Duration (minutes):</span>
+                <input type="number" id="testDuration" value="120" />
+            </label>
+            
+            <label>
+                <span class="label-text">Reading Time (minutes):</span>
+                <input type="number" id="readingTime" value="10" />
+                <small>Set to 0 for no reading time</small>
+            </label>
+        </div>
+
+        <div class="section q1-section">
+            <h2>Question 1 – Literary worlds (25 marks)</h2>
+            
+            <label>
+                <span class="label-text">YouTube Video URL:</span>
+                <input type="url" id="q1VideoUrl" value="https://www.youtube.com/watch?v=yPzHH9dc1x4" />
+                <small>Full YouTube URL</small>
+            </label>
+            
+            <label>
+                <span class="label-text">Question Prompt:</span>
+                <textarea id="q1Prompt" rows="3">Compare how the authors have created texts that invite readers to question the role of the individual in the world.</textarea>
+            </label>
+            
+            <label>
+                <span class="label-text">Word Limit:</span>
+                <input type="number" id="q1WordLimit" value="1000" />
+            </label>
+        </div>
+
+        <div class="section q2-section">
+            <h2>Question 2 – Electives (25 marks)</h2>
+            
+            <label>
+                <span class="label-text">Elective Title:</span>
+                <input type="text" id="q2ElectiveTitle" value="Confessional worlds" />
+            </label>
+            
+            <label>
+                <span class="label-text">Question Prompt:</span>
+                <textarea id="q2Prompt" rows="3">Evaluate how your study of Confessional worlds has shaped your appreciation of the complex relationship between performance and intimacy.</textarea>
+            </label>
+            
+            <label>
+                <span class="label-text">Word Limit:</span>
+                <input type="number" id="q2WordLimit" value="1000" />
+            </label>
+        </div>
+
+        <div class="generate-section">
+            <button id="generateExam" class="primary-button">Generate & Download Student Exam File</button>
+            <p class="help-text">Creates a standalone HTML file for students</p>
+            <div id="successMessage" class="success-message hidden">
+                ✓ Exam generated successfully! The file has been downloaded.
+            </div>
+        </div>
+    </div>
+
+    <script src="student-template.js"></script>
+    <script>
+        // Handle question visibility
+        document.querySelectorAll('input[name="questionsIncluded"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const q1 = document.querySelector('.q1-section');
+                const q2 = document.querySelector('.q2-section');
+                
+                if (this.value === 'both') {
+                    q1.classList.remove('hidden');
+                    q2.classList.remove('hidden');
+                } else if (this.value === 'q1') {
+                    q1.classList.remove('hidden');
+                    q2.classList.add('hidden');
+                } else {
+                    q1.classList.add('hidden');
+                    q2.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Get YouTube embed URL
+        function getYouTubeEmbedUrl(url) {
+            const videoIdMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/);
+            if (videoIdMatch && videoIdMatch[1]) {
+                return `https://www.youtube.com/embed/${videoIdMatch[1]}`;
+            }
+            return url;
+        }
+
+        // Generate word count script
+        function generateWordCountScript(textareaId, wordLimit, displayId) {
+            return `
+                const textarea${textareaId} = document.getElementById('${textareaId}');
+                const wordCount${textareaId} = document.getElementById('${displayId}');
+                
+                textarea${textareaId}.addEventListener('input', function() {
+                    const text = this.value.trim();
+                    const words = text ? text.split(/\\s+/).length : 0;
+                    wordCount${textareaId}.textContent = 'Words: ' + words + ' / ${wordLimit}';
+                    
+                    if (words > ${wordLimit}) {
+                        wordCount${textareaId}.classList.add('over-limit');
+                    } else {
+                        wordCount${textareaId}.classList.remove('over-limit');
+                    }
+                });
+            `;
+        }
+
+        // Generate exam
+        document.getElementById('generateExam').addEventListener('click', function() {
+            const questionsIncluded = document.querySelector('input[name="questionsIncluded"]:checked').value;
+            const examTitle = document.getElementById('examTitle').value;
+            const testDuration = parseInt(document.getElementById('testDuration').value);
+            const readingTime = parseInt(document.getElementById('readingTime').value);
+            
+            // Calculate marks
+            let totalMarks = 0;
+            let marksBreakdown = '';
+            let questionPages = '';
+            let pagesArray = [];
+            let wordCountScripts = '';
+            
+            // Q1 setup
+            if (questionsIncluded === 'both' || questionsIncluded === 'q1') {
+                totalMarks += 25;
+                const q1VideoUrl = document.getElementById('q1VideoUrl').value;
+                const q1Prompt = document.getElementById('q1Prompt').value;
+                const q1WordLimit = document.getElementById('q1WordLimit').value;
+                const embedUrl = getYouTubeEmbedUrl(q1VideoUrl);
+                
+                marksBreakdown += `<p><strong>Question 1 – 25 marks</strong><br>• Allow about 1 hour for this question.</p>`;
+                
+                questionPages += `
+                <div id="q1Page" class="question-page hidden">
+                    <h2 class="page-title">Question 1 – Literary worlds (25 marks)</h2>
+                    
+                    <div class="instruction-banner">
+                        Watch the video below, then respond to the question. You may replay the video as needed.
+                    </div>
+                    
+                    <div class="video-container">
+                        <iframe src="${embedUrl}" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="question-prompt">
+                        <p>${q1Prompt}</p>
+                    </div>
+                    
+                    <div class="response-area">
+                        <label for="q1Response" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Your Response:</label>
+                        <textarea id="q1Response" placeholder="Type your response here..."></textarea>
+                        <div class="word-count" id="q1WordCount">Words: 0 / ${q1WordLimit}</div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-secondary" onclick="prevPage()">‹ Previous</button>
+                        ${questionsIncluded === 'both' ? '<button class="btn btn-primary" onclick="nextPage()">Next question ›</button>' : '<button class="btn btn-primary" disabled>End of Exam</button>'}
+                    </div>
+                </div>`;
+                
+                pagesArray.push('q1Page');
+                wordCountScripts += generateWordCountScript('q1Response', q1WordLimit, 'q1WordCount');
+            }
+            
+            // Q2 setup
+            if (questionsIncluded === 'both' || questionsIncluded === 'q2') {
+                totalMarks += 25;
+                const q2ElectiveTitle = document.getElementById('q2ElectiveTitle').value;
+                const q2Prompt = document.getElementById('q2Prompt').value;
+                const q2WordLimit = document.getElementById('q2WordLimit').value;
+                
+                marksBreakdown += `<p><strong>Question 2 – 25 marks</strong><br>• Allow about 1 hour for this question.</p>`;
+                
+                questionPages += `
+                <div id="q2Page" class="question-page hidden">
+                    <h2 class="page-title">Question 2 – ${q2ElectiveTitle} (25 marks)</h2>
+                    
+                    <div class="instruction-banner">
+                        Answer the following question based on your study of ${q2ElectiveTitle}.
+                    </div>
+                    
+                    <div class="question-prompt">
+                        <p>${q2Prompt}</p>
+                    </div>
+                    
+                    <div class="response-area">
+                        <label for="q2Response" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Your Response:</label>
+                        <textarea id="q2Response" placeholder="Type your response here..."></textarea>
+                        <div class="word-count" id="q2WordCount">Words: 0 / ${q2WordLimit}</div>
+                    </div>
+                    
+                    <div class="navigation">
+                        <button class="btn btn-secondary" onclick="prevPage()">‹ Previous</button>
+                        <button class="btn btn-primary" disabled>End of Exam</button>
+                    </div>
+                </div>`;
+                
+                pagesArray.push('q2Page');
+                wordCountScripts += generateWordCountScript('q2Response', q2WordLimit, 'q2WordCount');
+            }
+            
+            // Time calculations
+            const durationSeconds = testDuration * 60;
+            const readingTimeSeconds = readingTime * 60;
+            const hours = Math.floor(testDuration / 60);
+            const minutes = testDuration % 60;
+            const durationDisplay = hours > 0 
+                ? `${hours}:${minutes.toString().padStart(2, '0')}:00`
+                : `0:${minutes}:00`;
+            
+            // Build final HTML
+            let finalHTML = STUDENT_EXAM_TEMPLATE
+                .replace(/{{EXAM_TITLE}}/g, examTitle)
+                .replace(/{{DURATION_DISPLAY}}/g, durationDisplay)
+                .replace(/{{READING_TIME}}/g, readingTime)
+                .replace(/{{DURATION_MINUTES}}/g, testDuration)
+                .replace(/{{TOTAL_MARKS}}/g, totalMarks)
+                .replace(/{{MARKS_BREAKDOWN}}/g, marksBreakdown)
+                .replace(/{{QUESTION_PAGES}}/g, questionPages)
+                .replace(/{{DURATION_SECONDS}}/g, durationSeconds)
+                .replace(/{{READING_TIME_SECONDS}}/g, readingTimeSeconds)
+                .replace(/{{HAS_READING_TIME}}/g, readingTime > 0 ? 'true' : 'false')
+                .replace(/{{PAGES_ARRAY}}/g, JSON.stringify(pagesArray));
+            
+            // Add word count scripts before closing script tag
+            finalHTML = finalHTML.replace('</script>\n</body>', wordCountScripts + '\n    </script>\n</body>');
+            
+            // Download the file
+            const blob = new Blob([finalHTML], { type: 'text/html;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'student_exam_' + Date.now() + '.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.remove('hidden');
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
