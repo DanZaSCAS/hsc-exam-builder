@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC English Extension Practice Exam Builder</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 1000px; margin: 0 auto; }
+        .builder-header {
+            background: #1e3a5f;
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .builder-header h1 { font-size: 28px; margin-bottom: 0.5rem; }
+        .builder-header p { font-size: 16px; opacity: 0.9; }
+        .section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            color: #1e3a5f;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+            font-size: 22px;
+        }
+        label {
+            display: block;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+        label span.label-text {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        input[type="text"],
+        input[type="url"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d0d0d0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        textarea { resize: vertical; }
+        small {
+            display: block;
+            color: #666;
+            font-size: 13px;
+            margin-top: 0.25rem;
+            font-weight: normal;
+        }
+        .primary-button {
+            background: #1e3a5f;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+        .primary-button:hover { background: #2a4a7f; }
+        .generate-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .help-text {
+            color: #666;
+            font-size: 14px;
+            margin-top: 1rem;
+        }
+        .question-selector {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .question-selector label {
+            flex: 1;
+            background: #f8f8f8;
+            padding: 1rem;
+            border-radius: 6px;
+            border: 2px solid #d0d0d0;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 0;
+        }
+        .question-selector input[type="radio"] { margin-right: 0.5rem; }
+        .question-selector label:has(input:checked) {
+            border-color: #1e3a5f;
+            background: #e8f4f8;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="builder-header">
+            <h1>HSC English Extension Practice Exam Builder</h1>
+            <p>Configure your exam and generate the student file</p>
+        </div>
+
+        <div class="section">
+            <h2>Exam Settings</h2>
+            
+            <div class="question-selector">
+                <label>
+                    <input type="radio" name="questionsIncluded" value="both" checked>
+                    <span class="label-text">Both Q1 and Q2</span>
+                </label>
+                <label>
+                    <input type="radio" name="questionsIncluded" value="q1">
+                    <span class="label-text">Q1 only</span>
+                </label>
+                <label>
+                    <input type="radio" name="questionsIncluded" value="q2">
+                    <span class="label-text">Q2 only</span>
+                </label>
+            </div>
+
+            <label>
+                <span class="label-text">Exam Title:</span>
+                <input type="text" id="examTitle" value="HSC English Extension I Practice Examination" />
+            </label>
+            
+            <label>
+                <span class="label-text">Test Duration (minutes):</span>
+                <input type="number" id="testDuration" value="120" />
+            </label>
+            
+            <label>
+                <span class="label-text">Reading Time (minutes):</span>
+                <input type="number" id="readingTime" value="10" />
+            </label>
+        </div>
+
+        <div class="section q1-section">
+            <h2>Question 1 – Literary worlds (25 marks)</h2>
+            
+            <label>
+                <span class="label-text">YouTube Video URL:</span>
+                <input type="url" id="q1VideoUrl" value="https://www.youtube.com/watch?v=yPzHH9dc1x4" />
+            </label>
+            
+            <label>
+                <span class="label-text">Question Prompt:</span>
+                <textarea id="q1Prompt" rows="3">Compare how the authors have created texts that invite readers to question the role of the individual in the world.</textarea>
+            </label>
+            
+            <label>
+                <span class="label-text">Word Limit:</span>
+                <input type="number" id="q1WordLimit" value="1000" />
+            </label>
+        </div>
+
+        <div class="section q2-section">
+            <h2>Question 2 – Electives (25 marks)</h2>
+            
+            <label>
+                <span class="label-text">Elective Title:</span>
+                <input type="text" id="q2ElectiveTitle" value="Confessional worlds" />
+            </label>
+            
+            <label>
+                <span class="label-text">Question Prompt:</span>
+                <textarea id="q2Prompt" rows="3">Evaluate how your study of Confessional worlds has shaped your appreciation of the complex relationship between performance and intimacy.</textarea>
+            </label>
+            
+            <label>
+                <span class="label-text">Word Limit:</span>
+                <input type="number" id="q2WordLimit" value="1000" />
+            </label>
+        </div>
+
+        <div class="generate-section">
+            <button id="generateExam" class="primary-button">Generate Student Exam File</button>
+            <p class="help-text">Creates a standalone HTML file for students</p>
+        </div>
+    </div>
+
+    <script src="student-template.js"></script>
+    <script>
+        document.querySelectorAll('input[name="questionsIncluded"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const q1 = document.querySelector('.q1-section');
+                const q2 = document.querySelector('.q2-section');
+                
+                if (this.value === 'both') {
+                    q1.classList.remove('hidden');
+                    q2.classList.remove('hidden');
+                } else if (this.value === 'q1') {
+                    q1.classList.remove('hidden');
+                    q2.classList.add('hidden');
+                } else {
+                    q1.classList.add('hidden');
+                    q2.classList.remove('hidden');
+                }
+            });
+        });
+
+        document.getElementById('generateExam').addEventListener('click', function() {
+            alert('For demo purposes, this will open the pre-built student exam in a new window.\n\nIn production, this would generate a customized file based on your inputs.');
+            window.open('hsc_student_exam.html', '_blank');
+        });
+    </script>
+</body>
+</html>
